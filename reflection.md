@@ -5,20 +5,28 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 ## 1. What was broken when you started?
 
 - What did the game look like the first time you ran it?
+
+When I ran the game, it opened a window on the browser with an interactive window. There were several buttons for example 'make a guess' button and 'enter your guess' window. Upon making a guess, there was a button for submitting my guess and a button for restarting the game and showing hints.
+
 - List at least two concrete bugs you noticed at the start  
   (for example: "the hints were backwards").
+  1. The hints are misleading, When the guess is lower and I'm required to go higher, the hints tell me to go lower, hence ends up moving away from the actual answer.
+  2. The Range for the levels is ignored. The game gave secret numbers between 1 and 100 regardless of the level.
+  3. The New Game button is not working, I had to refresh my window to continue playing after losing or winning a game.
+
+
 
 **Bug Reproduction Log**
 
 Document at least 3 bugs you found. Add rows as needed.
 
-| Input | Expected Behavior | Actual Behavior | Console Output / Error |
-|-------|-------------------|-----------------|------------------------|
-| | | | |
-| | | | |
-| | | | |
+| Input              | Expected Behavior         | Actual Behavior         | Error |
+|--------------------|--------------------------|-------------------------|-------|
+| Guess of 71        | Go lower                 | Go higher               | None  |
+| Easy Level         | Secret number<br>1–20    | Number between<br>1–100 | None  |
+| Press on New Game  | New secret number        | No change               | None  |
 
----
+
 
 ## 2. How did you use AI as a teammate?
 
