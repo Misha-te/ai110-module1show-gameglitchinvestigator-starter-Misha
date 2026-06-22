@@ -65,6 +65,18 @@ def update_score(current_score: int, outcome: str, attempt_number: int):
 
     return current_score
 
+
+def reset_round(low: int, high: int):
+    """Start a fresh round: new secret in [low, high] and cleared progress.
+
+    Shared by the New Game button and difficulty changes so both pick a secret
+    from the current difficulty's range. (Score is intentionally left alone.)
+    """
+    st.session_state.secret = random.randint(low, high)
+    st.session_state.attempts = 0
+    st.session_state.status = "playing"
+    st.session_state.history = []
+
 st.set_page_config(page_title="Glitchy Guesser", page_icon="🎮")
 
 st.title("🎮 Game Glitch Investigator")
@@ -105,6 +117,15 @@ if "status" not in st.session_state:
 if "history" not in st.session_state:
     st.session_state.history = []
 
+if "difficulty" not in st.session_state:
+    st.session_state.difficulty = difficulty
+
+# Changing difficulty must regenerate the secret so the new range takes effect.
+if st.session_state.difficulty != difficulty:
+    st.session_state.difficulty = difficulty
+    reset_round(low, high)
+    st.rerun()
+
 st.subheader("Make a guess")
 
 st.info(
@@ -128,15 +149,12 @@ col1, col2, col3 = st.columns(3)
 with col1:
     submit = st.button("Submit Guess 🚀")
 with col2:
-    new_game = st.button("New Game 🔁")
+    new_game = st.button("New Game 🔁") # works now
 with col3:
     show_hint = st.checkbox("Show hint", value=True)
 
 if new_game:
-    st.session_state.attempts = 0
-    st.session_state.secret = random.randint(low, high) # use current difficulty range
-    st.session_state.status = "playing"
-    st.session_state.history = []
+    reset_round(low, high)  # use current difficulty range
     st.success("New game started.")
     st.rerun()
 
