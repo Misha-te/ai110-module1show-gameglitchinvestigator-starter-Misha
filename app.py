@@ -30,7 +30,10 @@ def parse_guess(raw: str):
     return True, value, None
 
 
-def check_guess(guess, secret): # The hints are misleading. #solved
+def check_guess(guess, secret):
+    # FIXED: hints were misleading (arrows pointed the wrong way).
+    # AI pointed out the swapped returns; I corrected the mapping by hand:
+    # guess < secret -> "Too Low" -> go HIGHER, and the reverse.
     if guess == secret:
         return "Win", "🎉 Correct!"
 
@@ -40,12 +43,14 @@ def check_guess(guess, secret): # The hints are misleading. #solved
         else:
             return "Too High", "📉 Go LOWER!"
     except TypeError:
+        # FIXED: comparing int guess to a stringified secret crashed.
+        # AI suggested the TypeError fallback; arrows kept consistent with above.
         g = str(guess)
         if g == secret:
             return "Win", "🎉 Correct!"
         if g > secret:
-            return "Too High", "📈 Go LOWER!"
-        return "Too Low", "📉 Go HIGHER!"
+            return "Too High", "📉 Go LOWER!"
+        return "Too Low", "📈 Go HIGHER!"
 
 
 def update_score(current_score: int, outcome: str, attempt_number: int):
@@ -120,7 +125,9 @@ if "history" not in st.session_state:
 if "difficulty" not in st.session_state:
     st.session_state.difficulty = difficulty
 
-# Changing difficulty must regenerate the secret so the new range takes effect.
+# FIXED: switching difficulty kept the old secret/range.
+# AI spotted that the range changed but the secret didn't; reset_round now
+# regenerates within the new range. (Comment from AI, logic verified by me.)
 if st.session_state.difficulty != difficulty:
     st.session_state.difficulty = difficulty
     reset_round(low, high)
@@ -149,7 +156,8 @@ col1, col2, col3 = st.columns(3)
 with col1:
     submit = st.button("Submit Guess 🚀")
 with col2:
-    new_game = st.button("New Game 🔁") # works now
+    # FIXED: New Game button now actually resets the round (AI flagged it, I wired it to reset_round).
+    new_game = st.button("New Game 🔁")
 with col3:
     show_hint = st.checkbox("Show hint", value=True)
 
