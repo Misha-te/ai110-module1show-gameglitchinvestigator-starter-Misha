@@ -24,20 +24,36 @@ It wrote the code, ran away, and now the game is unplayable.
    - Keep fixing until all tests pass!
 
 ## 📝 Document Your Experience
+- Describe the game's purpose.
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+The game is a number-guessing game with three difficulty levels: Easy, Medium, and Hard. Each difficulty level uses a different range of possible secret numbers. Easy mode uses numbers from 1 to 50, Medium mode uses numbers from 1 to 100, and Hard mode uses numbers from 1 to 20. The player selects a difficulty level and is given a limited number of attempts to guess the secret number. After each guess, the game provides feedback, such as whether the guess is too high or too low, to help the player find the correct number.
+
+- Detail which bugs you found.
+
+I found three main bugs in the game:
+
+1. The difficulty-level ranges were not working correctly. The game was generating numbers in the same range regardless of the difficulty selected.
+2. The "New Game" button was not functioning properly and did not always start a new game as expected.
+3. The hint system was backwards, causing the game to give incorrect feedback about whether a guess was too high or too low.
+
+- Explain what fixes you applied.
+
+To fix the difficulty-level bug, I updated the code so that each difficulty level used its correct number range instead of always using the same range. For the "New Game" button, I corrected the game reset logic so that a new secret number and game state were created whenever the button was pressed. For the hint system, I fixed the comparison logic so that the game correctly displays whether a guess is too high or too low. I used AI tools to help identify and suggest fixes for some of these issues, but I also manually tested the game and corrected parts of the logic myself when necessary.
+
+
 
 ## 📸 Demo Walkthrough
 
 Describe your fixed game in numbered steps so a reader can follow along without watching a video:
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
+1. User enter 56
+2. Game returned "Too High"
+3. User enter 30
+4. Game returned "Too Low"
+5. User entered 42
+6. Game returned You won! The secret was 42. Final score: 160
+
+
 
 **Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
 
